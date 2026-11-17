@@ -69,6 +69,15 @@ test("真实Electron专业工作面、AI交接、固定导出、冲突与重开"
         .find((p: any) => p.url().startsWith("hetu-plugin:"));
     };
     let page: any = await open();
+    const display = await app.context().newCDPSession(page);
+    const emulateDisplay = (reduced: boolean) => display.send("Emulation.setEmulatedMedia", {
+      features: [
+        { name: "prefers-reduced-transparency", value: reduced ? "reduce" : "no-preference" },
+        { name: "prefers-contrast", value: "no-preference" },
+      ],
+    });
+    // 明确模拟页面媒体条件，兼顾CI宿主默认无障碍偏好，不修改系统设置。
+    await emulateDisplay(false);
     await expect(
       page.getByRole("heading", { name: "从作品出发", exact: true }),
     ).toBeVisible();
@@ -136,6 +145,14 @@ test("真实Electron专业工作面、AI交接、固定导出、冲突与重开"
         () => getComputedStyle(document.body).backgroundImage,
       ),
     ).toContain("gradient");
+    await emulateDisplay(true);
+    await expect.poll(() => page.evaluate(
+      () => getComputedStyle(document.body).backgroundImage,
+    )).toBe("none");
+    await emulateDisplay(false);
+    await expect.poll(() => page.evaluate(
+      () => getComputedStyle(document.body).backgroundImage,
+    )).toContain("gradient");
     await page.getByRole("button", { name: "让AI处理", exact: true }).focus();
     await expect(
       page.getByRole("button", { name: "让AI处理", exact: true }),
