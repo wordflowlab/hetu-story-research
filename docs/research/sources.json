@@ -1,0 +1,41 @@
+{
+  "record_version": 1,
+  "date": "2026-11-17",
+  "scope": "固定源码研究；未执行上游安装、测试或模型调用；未复制上游业务代码。",
+  "references": [
+    {
+      "repository": "canghai666x/dsh-web-novel-research",
+      "commit": "7d90809756103d36a04f9eb47cad4c0feef262a4",
+      "url": "https://github.com/canghai666x/dsh-web-novel-research/tree/7d90809756103d36a04f9eb47cad4c0feef262a4",
+      "license": "MIT",
+      "inspected_files": [
+        {
+          "repository": "canghai666x/dsh-web-novel-research",
+          "commit": "7d90809756103d36a04f9eb47cad4c0feef262a4",
+          "path": "README.md",
+          "sha256": "f7c00101a6f4b531eebfe13dc1c7de85c2aa24a14999f996bf581a3dadc2b7c7",
+          "bytes": 3032,
+          "url": "https://github.com/canghai666x/dsh-web-novel-research/blob/7d90809756103d36a04f9eb47cad4c0feef262a4/README.md",
+          "inspected_scope": "README相关功能段落；不是全部实现认证"
+        }
+      ]
+    },
+    {
+      "repository": "kilo-s/dsh-rank-scan",
+      "commit": "5f31feba2ca9ebd743244e66b2bea63a3cffa239",
+      "url": "https://github.com/kilo-s/dsh-rank-scan/tree/5f31feba2ca9ebd743244e66b2bea63a3cffa239",
+      "license": "BSD-3-Clause",
+      "inspected_files": [
+        {
+          "repository": "kilo-s/dsh-rank-scan",
+          "commit": "5f31feba2ca9ebd743244e66b2bea63a3cffa239",
+          "path": "README.md",
+          "sha256": "67e611c24459b86eb6d96339874d937b6bb38a4e24ef0928184f15e675837cd2",
+          "bytes": 14063,
+          "url": "https://github.com/kilo-s/dsh-rank-scan/blob/5f31feba2ca9ebd743244e66b2bea63a3cffa239/README.md",
+          "inspected_scope": "README相关功能段落；不是全部实现认证"
+        }
+      ]
+    }
+  ]
+}

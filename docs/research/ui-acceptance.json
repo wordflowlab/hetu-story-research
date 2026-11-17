@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-17T14:54:36.260Z",
+  "platform": "darwin arm64",
+  "package_sha256": "5adeffdf4bfe4f71ac614204bfe77825747164fa4705f6b9ec52a1d908b5bf9f",
+  "source_build": true,
+  "host": "/Users/coso/Documents/dev/ai/limecloud/hetu",
+  "evidence_directory": "/Users/coso/Documents/dev/ai/wordflowlab/hetu-story-research/test-results/workspace-真实Electron专业工作面、AI交接、固定导出、冲突与重开",
+  "checks": [
+    "empty-to-agent-result-refresh",
+    "all-tabs-light-dark",
+    "fixed-evidence",
+    "professional-calculation",
+    "keyboard",
+    "ai-handoff",
+    "fixed-html-export",
+    "narrow-no-overflow",
+    "cas-retains-input",
+    "close-reopen-retains-baseline"
+  ],
+  "viewport": [
+    1360,
+    900
+  ],
+  "narrow_viewport": [
+    760,
+    860
+  ],
+  "page_errors": []
+}

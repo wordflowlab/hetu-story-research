@@ -1,0 +1,89 @@
+name: Plugin verification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: plugin-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HETU_TEST_HOST_COMMIT: 3d929978419b8b230aee5fa2f9aed83614d4e2dd
+
+jobs:
+  verify:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: plugin
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: limecloud/hetu
+          ref: ${{ env.HETU_TEST_HOST_COMMIT }}
+          path: host
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "25.0.0"
+          cache: npm
+          cache-dependency-path: |
+            plugin/package-lock.json
+            host/package-lock.json
+      - name: Install fixed Rust toolchain
+        run: rustup toolchain install 1.93.1 --profile minimal
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: host -> target
+      - name: Build and test plugin
+        working-directory: plugin
+        run: |
+          npm ci
+          npm run build
+          npm run check
+          npm run test:unit
+          node scripts/package.mjs
+          mkdir -p output/acceptance
+      - name: Build fixed public host
+        working-directory: host
+        run: |
+          test "$(git rev-parse HEAD)" = "$HETU_TEST_HOST_COMMIT"
+          npm ci
+          npm run build --workspace @hetu/desktop
+          cargo +1.93.1 build --locked -p hetu-cli -p hetu-mcp -p hetu-plugin-cli -p hetu-app-server --bins --jobs 2
+      - name: Test final package through CLI and MCP
+        working-directory: plugin
+        env:
+          HETU_SOURCE: ${{ github.workspace }}/host
+          HETU_TEST_BIN: ${{ github.workspace }}/host/target/debug
+          HETU_TEST_PACKAGE: ${{ github.workspace }}/plugin/dist
+          HETU_RECEIPT_DIRECTORY: ${{ github.workspace }}/plugin/output/acceptance
+        run: npm run test:machine
+      - name: Test Electron work surface
+        working-directory: plugin
+        env:
+          HETU_SOURCE: ${{ github.workspace }}/host
+          HETU_TEST_BIN: ${{ github.workspace }}/host/target/debug
+          HETU_TEST_PACKAGE: ${{ github.workspace }}/plugin/dist
+          HETU_RECEIPT_DIRECTORY: ${{ github.workspace }}/plugin/output/acceptance
+        run: npm run test:ui
+      - name: Retain package and receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-verification
+          path: |
+            plugin/output/*.tgz
+            plugin/output/*.sha256
+            plugin/output/acceptance/
+            plugin/test-results/
+          if-no-files-found: ignore
+          retention-days: 14

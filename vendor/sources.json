@@ -1,0 +1,32 @@
+{
+  "source_repository": "https://github.com/limecloud/hetu",
+  "base_commit": "3064d9c56c90a5b85046d0f096100f76b5181ca1",
+  "scope": "本地公共SDK固定快照，含本批固定跨插件只读能力；未发布，不声称与远端提交完全一致。",
+  "files": [
+    {
+      "file": "hetu-sdk.ts",
+      "source": "packages/plugin-sdk/src/index.ts",
+      "sha256": "c8ac54e23169c394a8908978567ca26d74371027b1d94ed8abe72d94e9a35258"
+    },
+    {
+      "file": "project-store.ts",
+      "source": "packages/plugin-sdk/src/project-store.ts",
+      "sha256": "d91ae5c338a8c0d324a88674a9fa732e0b9bfb4cd1eb79b143f6b5fb5f1c36e8"
+    },
+    {
+      "file": "radix-workbench.css",
+      "source": "assets/styles/radix-workbench.css",
+      "sha256": "ccf9f4d25676a4225180128d05a3d0a9d26e92fa832fdccb7d80c4d52ee4b625"
+    },
+    {
+      "file": "radix-colors-MIT.txt",
+      "source": "assets/licenses/radix-colors-MIT.txt",
+      "sha256": "9c400881b9139571aa7acc3bd6e422a4f05223b4519169fb661298fb44bf228e"
+    },
+    {
+      "file": "hetu-LICENSE",
+      "source": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    }
+  ]
+}
