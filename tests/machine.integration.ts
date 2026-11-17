@@ -312,7 +312,7 @@ test(
             actions: [...c.actions],
             core_version: c.coreVersion,
             host_source_commit: process.env.HETU_TEST_HOST_COMMIT ?? null,
-            source_build: true,
+            source_build: !process.env.HETU_PACKAGED_APP,
             directory: c.directory,
             cli_mcp: true,
             skill_resources: true,
